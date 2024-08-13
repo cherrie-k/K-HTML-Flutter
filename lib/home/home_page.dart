@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             MapArea(),
-            bodyButtonsArea(),
+            bodyButtonsArea(context),
             HomeDetailArea(),
             ElevatedButton(
               onPressed: () {
@@ -28,31 +28,13 @@ class HomePage extends StatelessWidget {
               },
               child: Text('Chat Page'),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/campaign');
-              },
-              child: Text('Campaign Page'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/notice');
-              },
-              child: Text('Notice Page'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/reservation');
-              },
-              child: Text('Reservation Page'),
-            ),
           ],
         ),
       ),
     );
   }
 
-  Widget bodyButtonsArea() {
+  Widget bodyButtonsArea(BuildContext context) {
     return SizedBox(
       height: 400,
       child: Padding(
@@ -70,7 +52,9 @@ class HomePage extends StatelessWidget {
                     width: 180,
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, '/campaign');
+                },
               ),
             ),
             const SizedBox(width: 16),
@@ -87,7 +71,9 @@ class HomePage extends StatelessWidget {
                           width: 80,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/reservation');
+                      },
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -101,7 +87,9 @@ class HomePage extends StatelessWidget {
                           width: 80,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/notice');
+                      },
                     ),
                   ),
                 ],
