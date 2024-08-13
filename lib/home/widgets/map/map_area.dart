@@ -31,7 +31,7 @@ class _MapAreaState extends State<MapArea> {
             onTap: () {
               _toggleModal();
             },
-            child: CustomPin(text: 'A'),
+            child: const CustomPin(text: 'A'),
           ),
         ),
         const Positioned(
