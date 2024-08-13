@@ -16,8 +16,8 @@ class HomeDetailArea extends StatelessWidget {
         ),
         border: Border(
           top: BorderSide(
-            color: Color(0XFFF4F3F3),
-            width: 1.3,
+            color: Color(0XFFF2F2F2),
+            width: 1.5,
           ),
         ),
       ),
