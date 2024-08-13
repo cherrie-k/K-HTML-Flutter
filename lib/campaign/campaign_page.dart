@@ -20,6 +20,7 @@ class _CampaignPageState extends State<CampaignPage> {
   String? imageUrl;
   bool trashClicked = true;
   bool infoClicked = false;
+  bool loading = false;
   TextEditingController promptController = TextEditingController();
 
   Future<void> _getRecycleExplanation(XFile img) async {
@@ -46,6 +47,7 @@ class _CampaignPageState extends State<CampaignPage> {
           print("받은 responseData");
           print(responseData);  // 터미널에 응답 출력
           setState(() {
+            loading = false;
             explanation = responseData;
           });
         } else {
@@ -60,6 +62,10 @@ class _CampaignPageState extends State<CampaignPage> {
   Future<void> _submitPrompt() async {
     String prompt = promptController.text;
     if (!trashClicked && prompt.isNotEmpty) {
+      setState(() {
+        loading = true;
+      });
+
       try {
         var request = http.MultipartRequest(
           'POST',
@@ -81,8 +87,12 @@ class _CampaignPageState extends State<CampaignPage> {
               responseData = responseData.substring(1, responseData.length - 1);
             }
             imageUrl = responseData;
+            loading = false;
           });
         } else {
+          setState(() {
+            loading = false;
+          });
           print('이미지와 프롬프트 전송에 실패했습니다. 상태 코드: ${response.statusCode}');
         }
       } catch (e) {
@@ -96,7 +106,9 @@ class _CampaignPageState extends State<CampaignPage> {
       if (image != null) {
         setState(() {
           file = image;
-          explanation = 'loading ...';
+          if (trashClicked) {
+            loading = true;
+          }
           imageUrl = null; // Reset the imageUrl when a new image is picked
           if (trashClicked) {
             _getRecycleExplanation(image);
@@ -434,7 +446,18 @@ class _CampaignPageState extends State<CampaignPage> {
               child: SvgPicture.asset(
               'assets/icons/campInfo.svg',
               height: 120,
-                        ),
+              ),
+            ),
+          if (loading)
+            Align(
+              alignment: Alignment(0.0, -0.2), // 중앙에서 약간 위
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),  // BorderRadius 적용
+                child: Image.asset(
+                  'assets/icons/loading.gif',
+                  height: 90,
+                ),
+              ),
             ),
         ],
       ),
