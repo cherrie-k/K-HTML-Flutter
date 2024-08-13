@@ -394,16 +394,20 @@ class _CampaignPageState extends State<CampaignPage> {
                           child: TextField(
                             controller: promptController,
                             decoration: InputDecoration(
-                              labelText: '프롬프트 입력',
-                              border: OutlineInputBorder(),
+                              labelText: '  예: 치마로 리폼해줘',
+                              // border: OutlineInputBorder(),
                             ),
                           ),
                         ),
                         SizedBox(width: 15,),
-                        ElevatedButton(
-                          onPressed: _submitPrompt,
-                          child: Text('프롬프트 전송'),
+                        GestureDetector(
+                          onTap: _submitPrompt,
+                          child: SvgPicture.asset(
+                            'assets/icons/sB.svg',
+                            height: 33,
+                          ),
                         ),
+
                       ],
                     ),
                   ],
