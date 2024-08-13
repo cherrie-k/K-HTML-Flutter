@@ -25,7 +25,6 @@ class HomePage extends StatelessWidget {
                   MapArea(),
                   bodyButtonsArea(context),
                   HomeDetailArea(),
-                  dummyButtons(context),
                 ],
               ),
             ),
@@ -103,26 +102,6 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  dummyButtons(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/chat');
-          },
-          child: Text('Chat Page'),
-        ),
-        const SizedBox(height: 10),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/splash');
-          },
-          child: Text('Splash Page'),
-        ),
-      ],
     );
   }
 }
