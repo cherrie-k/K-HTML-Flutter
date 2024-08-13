@@ -18,15 +18,19 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: const Color(0xFFF6F6F6),
+        fontFamily: 'Pretendard',
+        appBarTheme: const AppBarTheme(
+          color: Color(0xFFFFFFFF),
+        ),
         useMaterial3: true,
       ),
       routes: {
-        '/home' : (context) => HomePage(),
-        '/chat' : (context) => ChatPage(),
-        '/campaign' : (context) => CampaignPage(),
-        '/notice' : (context) => NoticePage(),
-        '/reservation' : (context) => ReservationPage(),
+        '/home': (context) => HomePage(),
+        '/chat': (context) => ChatPage(),
+        '/campaign': (context) => CampaignPage(),
+        '/notice': (context) => NoticePage(),
+        '/reservation': (context) => ReservationPage(),
       },
       home: const HomePage(),
     );
