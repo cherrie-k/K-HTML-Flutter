@@ -205,40 +205,44 @@ class _CampaignPageState extends State<CampaignPage> {
                 color: Colors.white,
                 padding: EdgeInsets.symmetric(horizontal: 33, vertical: 10),
                 child: trashClicked
-                    ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      'assets/icons/cT.svg',
-                      height: 24,
-                    ),
-                    SizedBox(width: 20,),
-                    GestureDetector(
-                      onTap: _switchMenu,
-                      child: SvgPicture.asset(
-                        'assets/icons/uC.svg',
-                        height: 21,
+                    ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                      SvgPicture.asset(
+                        'assets/icons/cT.svg',
+                        height: 25,
                       ),
-                    ),
-                  ],
-                )
-                    : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: _switchMenu,
-                      child: SvgPicture.asset(
-                        'assets/icons/uT.svg',
-                        height: 21,
+                      GestureDetector(
+                        onTap: _switchMenu,
+                        child: SvgPicture.asset(
+                          'assets/icons/uC.svg',
+                          height: 21,
+                        ),
                       ),
+                                        ],
+                                      ),
+                    )
+                    : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                      GestureDetector(
+                        onTap: _switchMenu,
+                        child: SvgPicture.asset(
+                          'assets/icons/uT.svg',
+                          height: 21,
+                        ),
+                      ),
+                      SvgPicture.asset(
+                        'assets/icons/cC.svg',
+                        height: 25,
+                      ),
+                                        ],
+                                      ),
                     ),
-                    SizedBox(width: 20,),
-                    SvgPicture.asset(
-                      'assets/icons/cC.svg',
-                      height: 24,
-                    ),
-                  ],
-                ),
               ),
               Expanded(
                 child: Container(
