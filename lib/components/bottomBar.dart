@@ -13,17 +13,32 @@ class bottomBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SvgPicture.asset(
-              'assets/icons/chat.svg',
-              height: 25,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/chat');
+              },
+              child: SvgPicture.asset(
+                'assets/icons/chat.svg',
+                height: 25,
+              ),
             ),
-            SvgPicture.asset(
-              'assets/icons/home.svg',
-              height: 60,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/home');
+              },
+              child: SvgPicture.asset(
+                'assets/icons/home.svg',
+                height: 60,
+              ),
             ),
-            SvgPicture.asset(
-              'assets/icons/user.svg',
-              height: 30,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/splash');
+              },
+              child: SvgPicture.asset(
+                'assets/icons/user.svg',
+                height: 30,
+              ),
             ),
           ],
         ),

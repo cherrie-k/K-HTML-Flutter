@@ -1,6 +1,6 @@
 const List<Map<String, dynamic>> facilities = const [
   {
-    'imgUrl': 'assets/images/observatory.png',
+    'imgUrl': 'assets/images/observatory.jpg',
     'name': '소각장 전망대',
     'tags': ['#프로포즈', '#이색 데이트'],
     'detail_info': {
@@ -31,9 +31,9 @@ const List<Map<String, dynamic>> facilities = const [
     },
   },
   {
-    'imgUrl': 'assets/images/salsa.png',
-    'name': '살사 클럽',
-    'tags': ['#사교클럽', '#성인취미'],
+    'imgUrl': 'assets/images/gallery.jpg',
+    'name': '채리마루 전시회',
+    'tags': ['#전시', '#아트'],
     'detail_info': {
       'intro': '',
       'description':
