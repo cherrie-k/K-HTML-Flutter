@@ -7,7 +7,7 @@ class ScrollItemData {
       {required this.title, required this.imgPath, required this.text});
 }
 
-final List<ScrollItemData> items = [
+final List<ScrollItemData> scrollItems = [
   ScrollItemData(
     title: '첨단 기술과 효율적인 운영',
     imgPath: 'assets/images/sogakjang.jpg',

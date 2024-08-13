@@ -15,7 +15,7 @@ class _ScrollPageState extends State<ScrollPage> {
 
   void _nextPage() {
     setState(() {
-      _currentIndex = (_currentIndex + 1) % items.length;
+      _currentIndex = (_currentIndex + 1) % scrollItems.length;
     });
     _pageController.animateToPage(
       _currentIndex,
@@ -26,7 +26,7 @@ class _ScrollPageState extends State<ScrollPage> {
 
   void _previousPage() {
     setState(() {
-      _currentIndex = (_currentIndex - 1 + items.length) % items.length;
+      _currentIndex = (_currentIndex - 1 + scrollItems.length) % scrollItems.length;
     });
     _pageController.animateToPage(
       _currentIndex,
@@ -55,7 +55,7 @@ class _ScrollPageState extends State<ScrollPage> {
                 onPressed: _previousPage,
               ),
               Text(
-                items[_currentIndex].title,
+                scrollItems[_currentIndex].title,
                 style: const TextStyle(
                     color: Color(0xFF444444),
                     fontSize: 18,
@@ -83,9 +83,9 @@ class _ScrollPageState extends State<ScrollPage> {
                 _currentIndex = index;
               });
             },
-            itemCount: items.length,
+            itemCount: scrollItems.length,
             itemBuilder: (context, index) {
-              final item = items[index];
+              final item = scrollItems[index];
               return ScrollItem(
                 text: item.text,
                 imgPath: item.imgPath,
