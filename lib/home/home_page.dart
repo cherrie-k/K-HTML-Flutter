@@ -3,6 +3,7 @@ import 'package:k_html_flutter/global/widgets/custom_appbar.dart';
 import 'package:k_html_flutter/home/widgets/home_body_btn.dart';
 import 'package:k_html_flutter/home/widgets/home_detail_area.dart';
 import 'package:k_html_flutter/home/widgets/map/map_area.dart';
+import '../components/bottomBar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,23 +11,32 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar(
-        title: '용인그린에코파크',
-        showBack: false,
-        context: context,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            MapArea(),
-            bodyButtonsArea(context),
-            HomeDetailArea(),
-            dummyButtons(context)
-          ],
+        appBar: customAppbar(
+          title: '용인그린에코파크',
+          showBack: false,
+          context: context,
         ),
-      ),
-    );
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MapArea(),
+                  bodyButtonsArea(context),
+                  HomeDetailArea(),
+                  dummyButtons(context),
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 0, // 화면의 하단에 고정
+              left: 0, // 화면의 왼쪽에 고정
+              right: 0, // 화면의 오른쪽에 고정
+              child: bottomBar(), // 하단에 고정할 위젯
+            ),
+          ],
+        ));
   }
 
   Widget bodyButtonsArea(BuildContext context) {
