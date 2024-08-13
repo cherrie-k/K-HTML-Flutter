@@ -11,10 +11,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: customAppbar(
-          title: '용인그린에코파크',
-          showBack: false,
-          context: context,
+        appBar: AppBar(
+          title: Text(' 용인그린에코파크', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 21),),
+          automaticallyImplyLeading: false,
+          centerTitle: false,
         ),
         body: Stack(
           children: [
