@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:k_html_flutter/home/widgets/scroll_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:k_html_flutter/home/widgets/side_scroll/scroll_page.dart';
 
 class HomeDetailArea extends StatelessWidget {
   const HomeDetailArea({super.key});
@@ -23,14 +24,46 @@ class HomeDetailArea extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(
+          Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 18,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 40),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/leaf.svg',
+                      width: 18,
+                      colorFilter: ColorFilter.mode(
+                        const Color(0xFFFFFFFF).withOpacity(0.3),
+                        BlendMode.srcOver,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    SvgPicture.asset(
+                      'assets/icons/leaf.svg',
+                      width: 18,
+                      colorFilter: ColorFilter.mode(
+                        const Color(0xFFFFFFFF).withOpacity(0.3),
+                        BlendMode.srcOver,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    SvgPicture.asset(
+                      'assets/icons/leaf.svg',
+                      width: 18,
+                      colorFilter: ColorFilter.mode(
+                        const Color(0xFFFFFFFF).withOpacity(0.3),
+                        BlendMode.srcOver,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 50),
                 Text(
                   '용인그린에코파크',
                   style: TextStyle(
@@ -52,7 +85,12 @@ class HomeDetailArea extends StatelessWidget {
               ],
             ),
           ),
-          Image.network('https://picsum.photos/500/300'),
+          Image.asset(
+            'assets/images/green_park.jpg',
+            height: 250,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
           const SizedBox(height: 14),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 18),
@@ -65,7 +103,10 @@ class HomeDetailArea extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 90),
-          SizedBox(height: 600, child: ScrollPage()),
+          SizedBox(
+            height: 600,
+            child: ScrollPage(),
+          ),
         ],
       ),
     );

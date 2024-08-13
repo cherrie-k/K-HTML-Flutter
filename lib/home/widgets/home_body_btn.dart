@@ -20,6 +20,7 @@ class HomeBodyBtn extends StatelessWidget {
       borderRadius: BorderRadius.circular(16),
       onTap: onTap,
       child: Container(
+        clipBehavior: Clip.antiAlias,
         padding: const EdgeInsets.only(left: 16, top: 18),
         width: double.infinity,
         decoration: BoxDecoration(

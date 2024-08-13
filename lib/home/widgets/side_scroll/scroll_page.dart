@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:k_html_flutter/home/widgets/scroll_item.dart';
+import 'package:k_html_flutter/home/widgets/side_scroll/scroll_item.dart';
 import 'scroll_item_data.dart';
 
 class ScrollPage extends StatefulWidget {

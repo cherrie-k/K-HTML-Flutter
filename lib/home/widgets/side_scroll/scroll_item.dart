@@ -19,7 +19,7 @@ class ScrollItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.network(
+          Image.asset(
             imgPath,
             height: 217,
             width: double.infinity,
