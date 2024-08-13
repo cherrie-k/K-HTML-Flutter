@@ -4,7 +4,7 @@ import 'package:k_html_flutter/chat/chat_page.dart';
 import 'package:k_html_flutter/home/home_page.dart';
 import 'package:k_html_flutter/notice/notice_page.dart';
 import 'package:k_html_flutter/reservation/reservation_page.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:k_html_flutter/splash/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/campaign': (context) => CampaignPage(),
         '/notice': (context) => NoticePage(),
         '/reservation': (context) => ReservationPage(),
+        '/splash': (context) => SplashPage(),
       },
       home: const HomePage(),
     );

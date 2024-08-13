@@ -70,6 +70,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/tower.jpeg
+    - assets/images/logo.svg
     - assets/icons/
 
   fonts:
