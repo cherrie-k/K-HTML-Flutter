@@ -17,6 +17,7 @@ class CampaignPage extends StatefulWidget {
 class _CampaignPageState extends State<CampaignPage> {
   XFile? file;
   String explanation = '';
+  String? imageUrl;
   bool trashClicked = true;
   TextEditingController promptController = TextEditingController();
 
@@ -74,6 +75,12 @@ class _CampaignPageState extends State<CampaignPage> {
         if (response.statusCode == 200) {
           var responseData = await response.stream.bytesToString();
           print("서버로부터 받은 응답: $responseData");  // 터미널에 응답 출력
+          setState(() {
+            if (responseData.startsWith('"') && responseData.endsWith('"')) {
+              responseData = responseData.substring(1, responseData.length - 1);
+            }
+            imageUrl = responseData;
+          });
         } else {
           print('이미지와 프롬프트 전송에 실패했습니다. 상태 코드: ${response.statusCode}');
         }
@@ -89,6 +96,7 @@ class _CampaignPageState extends State<CampaignPage> {
         setState(() {
           file = image;
           explanation = 'loading ...';
+          imageUrl = null; // Reset the imageUrl when a new image is picked
           if (trashClicked) {
             _getRecycleExplanation(image);
           }
@@ -101,6 +109,7 @@ class _CampaignPageState extends State<CampaignPage> {
     setState(() {
       trashClicked = !trashClicked;
       file = null;
+      imageUrl = null; // Reset the imageUrl when switching menus
     });
     print(trashClicked);
   }
@@ -305,65 +314,97 @@ class _CampaignPageState extends State<CampaignPage> {
                 )
                     : Column(
                   children: [
-                    (file != null)
+                    (imageUrl != null)
                         ? Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12.0),
-                          child: Container(
-                            width: double.infinity,
-                            child: Image.file(
-                              File(file!.path),
-                              fit: BoxFit.cover,
+                      child: GestureDetector(
+                        onTap: _pickImage,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: Container(
+                              width: double.infinity,
+                              child: Image.network(
+                                imageUrl!,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     )
-                        : Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: Center(
-                        child: GestureDetector(
-                          onTap: _pickImage,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/icons/camera.svg',
-                                height: 83,
+                        : (file != null)
+                        ? Expanded(
+                      child: GestureDetector(
+                        onTap: _pickImage,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: Container(
+                              width: double.infinity,
+                              child: Image.file(
+                                File(file!.path),
+                                fit: BoxFit.cover,
                               ),
-                              SizedBox(height: 4,),
-                              Text(
-                                '이미지 업로드',
-                                style: TextStyle(
-                                  color: Color(0xFF383838),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                        : Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: _pickImage,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/camera.svg',
+                                  height: 83,
                                 ),
-                              )
-                            ],
+                                SizedBox(height: 4,),
+                                Text(
+                                  '이미지 업로드',
+                                  style: TextStyle(
+                                    color: Color(0xFF383838),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                     SizedBox(height: 15,),
-                    TextField(
-                      controller: promptController,
-                      decoration: InputDecoration(
-                        labelText: '프롬프트 입력',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    SizedBox(height: 15,),
-                    ElevatedButton(
-                      onPressed: _submitPrompt,
-                      child: Text('프롬프트 전송'),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: promptController,
+                            decoration: InputDecoration(
+                              labelText: '프롬프트 입력',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 15,),
+                        ElevatedButton(
+                          onPressed: _submitPrompt,
+                          child: Text('프롬프트 전송'),
+                        ),
+                      ],
                     ),
                   ],
                 ),
