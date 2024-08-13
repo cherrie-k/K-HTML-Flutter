@@ -187,59 +187,206 @@ class FacilityDetailPage extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: timetable.length,
-                                itemBuilder: (context, index) {
-                                  final time = timetable[index];
-                                  return ListTile(
-                                    title: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${time['time']}',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: const Color(0xFFFFFFFF),
-                                            backgroundColor:
-                                                const Color(0xFF6FC295),
+                              SizedBox(
+                                height: 55,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: ListView.separated(
+                                    shrinkWrap: true,
+                                    itemCount: timetable.length,
+                                    scrollDirection: Axis.horizontal,
+                                    separatorBuilder: (context, index) =>
+                                        SizedBox(width: 10),
+                                    itemBuilder: (context, index) {
+                                      final time = timetable[index];
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFFFFFFF),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(6)),
+                                          border: Border.all(
+                                            color: const Color(0xFF6FC295),
+                                            width: 1.5,
                                           ),
                                         ),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5, vertical: 6),
+                                              width: 90,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xFF6FC295),
+                                              ),
+                                              child: Text(
+                                                '${time['time']}',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color:
+                                                      const Color(0xFFFFFFFF),
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${time['discount']}',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: const Color(0xFF6FC295),
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: Container(
+                                  margin: EdgeInsets.all(20),
+                                  padding: EdgeInsets.only(
+                                      top: 10, bottom: 15, left: 15, right: 15),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: const Color(0xFF6FC295),
+                                      width: 1.5,
+                                    ),
+                                    borderRadius: BorderRadius.circular(55),
+                                  ),
+                                  child: Container(
+                                    width: 180,
+                                    height: 19,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 13),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
                                         Text(
-                                          '${time['discount']}',
+                                          '예약가능 날짜 찾기',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: const Color(0xFF6FC295),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 3),
+                                          child: Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 14,
+                                            color: const Color(0xFF6FC295),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                child: Divider(
+                                  color: const Color(0xFFF3F5F7),
+                                  thickness: 8,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(width: 5),
+                                    Text(
+                                      '상세 정보',
+                                      style: TextStyle(
+                                        fontSize: 21,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.directions_car,
+                                          color: const Color(0xFF6FC295)
+                                              .withOpacity(0.8),
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                          height: 35,
+                                        ),
+                                        Text(
+                                          '주차가능',
                                           style: TextStyle(
                                             fontSize: 14,
-                                            color: const Color(0xFF6FC295),
+                                            color: const Color(0xFF6FC295)
+                                                .withOpacity(0.8),
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                        color: const Color(0xFF6FC295),
-                                        width: 2,
+                                    SizedBox(
+                                      height: 9,
+                                    ),
+                                    Text(
+                                      '전화번호',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      borderRadius: BorderRadius.circular(5),
                                     ),
-                                  );
-                                },
-                              ),
-                              SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  SizedBox(width: 5),
-                                  Text(
-                                    '상세 정보',
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
+                                    SizedBox(
+                                      height: 5,
                                     ),
-                                  ),
-                                ],
+                                    Row(
+                                      children: [
+                                        Icon(Icons.phone,
+                                            color: const Color(0xFF000000)
+                                                .withOpacity(0.5),
+                                            size: 18),
+                                        SizedBox(
+                                          width: 5,
+                                          height: 35,
+                                        ),
+                                        Text(
+                                          '010-4688-5964',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: const Color(0xFF53AFF2)
+                                                .withOpacity(0.8),
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 9,
+                                    ),
+                                    Text(
+                                      '영업시간',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      '매일 • 9:00 ~ 20:00',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: const Color(0xFF000000)
+                                            .withOpacity(0.7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
