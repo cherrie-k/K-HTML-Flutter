@@ -4,6 +4,7 @@ import 'package:k_html_flutter/chat/chat_page.dart';
 import 'package:k_html_flutter/home/home_page.dart';
 import 'package:k_html_flutter/notice/notice_page.dart';
 import 'package:k_html_flutter/reservation/reservation_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
