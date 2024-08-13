@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import './facility_detail.dart';
 import './facilities.dart';
-
-void main() {
-  runApp(MaterialApp(
-    home: ReservationPage(),
-  ));
-}
+import '../components/bottomBar.dart';
 
 class ReservationPage extends StatelessWidget {
   const ReservationPage({Key? key}) : super(key: key);
@@ -29,20 +24,28 @@ class ReservationPage extends StatelessWidget {
               )),
           centerTitle: true,
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: ListView.separated(
-            itemCount: facilities.length,
-            separatorBuilder: (context, index) {
-              return SizedBox(height: 20);
-            },
-            itemBuilder: (context, index) {
-              return FacilityCard(
-                facilitiy: facilities[index],
-              );
-            },
+        body: Stack(children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            child: ListView.separated(
+              itemCount: facilities.length,
+              separatorBuilder: (context, index) {
+                return SizedBox(height: 20);
+              },
+              itemBuilder: (context, index) {
+                return FacilityCard(
+                  facilitiy: facilities[index],
+                );
+              },
+            ),
           ),
-        ));
+          Positioned(
+            bottom: 0, // 화면의 하단에 고정
+            left: 0, // 화면의 왼쪽에 고정
+            right: 0, // 화면의 오른쪽에 고정
+            child: bottomBar(), // 하단에 고정할 위젯
+          ),
+        ]));
   }
 }
 
