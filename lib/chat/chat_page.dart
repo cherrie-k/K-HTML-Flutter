@@ -14,66 +14,99 @@ class _ChatPageState extends State<ChatPage> {
   final List<Map<String, String>> _messages = [];
   bool _isLoading = false;
 
-  // void _sendMessage(String message) async {
-  //   setState(() {
-  //     _messages.add({'sender': 'user', 'message': message});
-  //     _isLoading = true;
-  //   });
-  //   _controller.clear();
-
-  //   final response = await http.post(
-  //     Uri.parse('https://localhost:3000/generate-text'),
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: json.encode({'prompt': message}),
-  //   );
-
-  //   if (response.statusCode == 200) {
-  //     final responseData = json.decode(response.body);
-  //     setState(() {
-  //       _messages.add({'sender': 'bot', 'message': responseData['response']});
-  //       _isLoading = false;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       _messages.add({
-  //         'sender': 'bot',
-  //         'message': 'Failed to get response from server.'
-  //       });
-  //       _isLoading = false;
-  //     });
-  //   }
-  // }
-
   void _sendMessage(String message) async {
-    String time = _formatCurrentTime();
+    String time = formatCurrentTime();
     setState(() {
-      _messages.add({'sender': 'user', 'message': message, 'time': time});
+      _messages.add({
+        'sender': 'user',
+        'message': message,
+        'time': time,
+      });
       _isLoading = true;
     });
     _controller.clear();
 
-    // Add a temporary placeholder for the loading indicator
+    // Add loading indicator message
     setState(() {
-      _messages.add({'sender': 'bot', 'message': 'loading', 'time': time});
+      _messages.add({
+        'sender': 'bot',
+        'message': 'loading',
+        'time': time,
+      });
     });
 
-    // Simulate a delay for the dummy function
-    await Future.delayed(Duration(seconds: 2));
-    String response = _dummyServerResponse(message);
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:3000/generate-text'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'prompt': message}),
+      );
 
-    setState(() {
-      _messages.removeLast(); // Remove the loading indicator
-      _messages.add(
-          {'sender': 'bot', 'message': response, 'time': _formatCurrentTime()});
-      _isLoading = false;
-    });
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        setState(() {
+          _messages.removeLast(); // Remove the loading indicator message
+          _messages.add({
+            'sender': 'bot',
+            'message': responseData['response'],
+            'time': formatCurrentTime(),
+          });
+          _isLoading = false;
+        });
+      } else {
+        setState(() {
+          _messages.removeLast(); // Remove the loading indicator message
+          _messages.add({
+            'sender': 'bot',
+            'message': 'Failed to get response from server.',
+            'time': formatCurrentTime(),
+          });
+          _isLoading = false;
+        });
+      }
+    } catch (error) {
+      setState(() {
+        _messages.removeLast(); // Remove the loading indicator message
+        _messages.add({
+          'sender': 'bot',
+          'message': 'An error occurred: $error',
+          'time': formatCurrentTime(),
+        });
+        _isLoading = false;
+      });
+    }
   }
 
-  String _dummyServerResponse(String prompt) {
-    return 'This is a dummy response to "$prompt".';
-  }
+  // void _sendDummyMessage(String message) async {
+  //   String time = _formatCurrentTime();
+  //   setState(() {
+  //     _messages.add({'sender': 'user', 'message': message, 'time': time});
+  //     _isLoading = true;
+  //   });
+  //   _controller.clear();
 
-  String _formatCurrentTime() {
+  //   // Add a temporary placeholder for the loading indicator
+  //   setState(() {
+  //     _messages.add({'sender': 'bot', 'message': 'loading', 'time': time});
+  //   });
+
+  //   // Simulate a delay for the dummy function
+  //   await Future.delayed(Duration(seconds: 2));
+  //   String response = _dummyServerResponse(message);
+
+  //   setState(() {
+  //     _messages.removeLast(); // Remove the loading indicator
+  //     _messages.add(
+  //         {'sender': 'bot', 'message': response, 'time': _formatCurrentTime()});
+  //     _isLoading = false;
+  //   });
+  // }
+
+  // String _dummyServerResponse(String prompt) {
+  //   return 'This is a dummy response to "$prompt".';
+  // }
+
+  String formatCurrentTime() {
     final now = DateTime.now();
     return '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
   }
@@ -116,7 +149,14 @@ class _ChatPageState extends State<ChatPage> {
                     ? SizedBox(
                         width: 24,
                         height: 24,
-                        child: CircularProgressIndicator(strokeWidth: 2),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Color(0xFF6FC295),
+                        ),
+                        // child: Image.asset(
+                        //   'assets/icons/loading.gif',
+                        //   height: 90,
+                        // ),
                       )
                     : Text(
                         message['message']!,
@@ -157,7 +197,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: customAppbar(
         context: context,
-        title: '용인 시장 이상일',
+        title: '소각이',
         showAction: true,
       ),
       backgroundColor: Color(0xFFFFFFFF),
@@ -181,6 +221,7 @@ class _ChatPageState extends State<ChatPage> {
                     },
                   ),
                 ),
+                const SizedBox(height: 82),
               ],
             ),
           ),
@@ -190,6 +231,7 @@ class _ChatPageState extends State<ChatPage> {
             right: 0,
             child: Container(
               decoration: BoxDecoration(
+                color: Color(0xFFFFFFFF),
                 border: Border(
                   top: BorderSide(
                     color: Color(0XFFF2F2F2),
