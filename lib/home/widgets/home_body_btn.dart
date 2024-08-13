@@ -27,8 +27,8 @@ class HomeBodyBtn extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: const Color(0xFFFFFFFF),
           border: Border.all(
-            color: const Color(0XFFF4F3F3),
-            width: 1.2,
+            color: const Color(0XFFF2F2F2),
+            width: 1.4,
           ),
         ),
         child: Column(
